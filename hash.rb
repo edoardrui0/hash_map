@@ -1,10 +1,12 @@
+require_relative 'linked'
+
 class HashMap
   attr_accessor :load, :cap, :buckets
 
   def initialize
     @load = 0.75 
     @cap = 16
-    @buckets = Array.new(cap)
+    @buckets = Array.new(cap) {LinkedList.new()} # this is what we're stuck on, we need to figure out how to include LinkedList into our HashMap
   end
 
   def hash(key) # returns a unique key based on the str's ords
@@ -15,12 +17,14 @@ class HashMap
   end
 
   def set(key, value)
-    index = hash(key)
+    index = hash(key) % cap
     buckets[0] = index, value
-    p buckets
+    puts buckets
   end
 end
 
 test = HashMap.new
 
 test.set('apple', 'red')
+test.set('banana', 'yellow')
+test.set('carrot', 'orange')
