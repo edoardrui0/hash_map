@@ -1,12 +1,13 @@
 require_relative 'linked'
 
 class HashMap < LinkedList
-  attr_accessor :load, :cap, :buckets
+  attr_accessor :load, :cap, :list, :buckets
 
   def initialize
     @load = 0.75 
-    @cap = 13
-    @buckets = Array.new(cap) # this is what we're stuck on, we need to figure out how to include LinkedList into our HashMap
+    @cap = 16
+    @list = LinkedList.new
+    @buckets = Array.new(cap) {@list} # this is what we're stuck on, we need to figure out how to include LinkedList into our HashMap
   end
 
   def hash(key) # returns a unique key based on the str's ords
@@ -17,8 +18,9 @@ class HashMap < LinkedList
   end
 
   def set(key, value) # sets our key and value into the array
-    index = hash(key) % cap
-    buckets[index] = {key: key, value: value}
+    prime_num = 17
+    index = hash(key) % prime_num
+    @buckets[index] = @list.append(key, value)
   end
 
   def buck
@@ -37,4 +39,5 @@ test.set('frog', 'green')
 test.set('grape', 'purple')
 test.set('hat', 'black')
 test.set('ice cream', 'white')
+
 test.buck

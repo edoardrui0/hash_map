@@ -1,20 +1,23 @@
 require_relative 'node'
 
 class LinkedList
-  
+  attr_accessor :head
+
   def initialize
-    def head_node(value) # adds a new node containing value to the start of the list
-      @head = Node.new(value, @head)
-    end      
+    @head = nil
   end
 
-  def add_node(value) # adds a new node containing value to the end of the list
-    current_node = @head
+  def append(key, value) # adds a new node containing value to the end of the list
+    current_node = Node.new(key, value)
     while current_node.next_node != nil
       current_node = current_node.next_node
     end
-    current_node.next_node = Node.new(value, nil)
+    current_node.next_node = Node.new(key, value)
   end
+
+  def prepend(key, value) # adds a new node containing value to the start of the list
+    @head = Node.new(key, value)
+  end 
 
   def size # returns the total number of nodes in the list
     size = 0
