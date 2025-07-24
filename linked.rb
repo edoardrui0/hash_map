@@ -1,22 +1,19 @@
 require_relative 'node'
 
 class LinkedList
-  attr_accessor :head
-
-  def initialize(value)
-    @head = Node.new(value, nil)
+  
+  def initialize
+    def head_node(value) # adds a new node containing value to the start of the list
+      @head = Node.new(value, @head)
+    end      
   end
 
-  def append(value) # adds a new node containing value to the end of the list
+  def add_node(value) # adds a new node containing value to the end of the list
     current_node = @head
     while current_node.next_node != nil
       current_node = current_node.next_node
     end
     current_node.next_node = Node.new(value, nil)
-  end
-
-  def prepend(value) # adds a new node containing value to the start of the list
-    @head = Node.new(value, @head)
   end
 
   def size # returns the total number of nodes in the list
@@ -94,3 +91,10 @@ class LinkedList
     puts list << " nil"
   end
 end
+
+# list = LinkedList.new
+
+# list.head_node('cat')
+# list.add_node('moose')
+# # list.add_node('dog')
+# list.to_s
