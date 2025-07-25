@@ -7,12 +7,12 @@ class LinkedList
     @head = nil
   end
 
-  def append(key, value) # adds a new node containing value to the end of the list
-    current_node = Node.new(key, value)
-    while current_node.next_node != nil
-      current_node = current_node.next_node
-    end
-    current_node.next_node = Node.new(key, value)
+  def append(key, value)
+    return @head = Node.new(key, value) if @head.nil?
+      
+    current = @head
+    current = current.next_node until current.next_node.nil?
+    current.next_node = Node.new(key, value)
   end
 
   def prepend(key, value) # adds a new node containing value to the start of the list
@@ -88,7 +88,7 @@ class LinkedList
     current_node = @head
     list = ''
     while current_node
-      list << "( #{current_node.value} ) -> "
+      list << "( #{current_node.key} => #{current_node.value} ) -> "
       current_node = current_node.next_node
     end
     puts list << " nil"
@@ -97,7 +97,5 @@ end
 
 # list = LinkedList.new
 
-# list.head_node('cat')
-# list.add_node('moose')
-# # list.add_node('dog')
-# list.to_s
+# list.append('apple', 'red')
+# list.append('banana', 'yellow')

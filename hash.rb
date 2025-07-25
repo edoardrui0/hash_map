@@ -6,8 +6,7 @@ class HashMap < LinkedList
   def initialize
     @load = 0.75 
     @cap = 16
-    @list = LinkedList.new
-    @buckets = Array.new(cap) {@list} # this is what we're stuck on, we need to figure out how to include LinkedList into our HashMap
+    @buckets = Array.new(cap) # this is what we're stuck on, we need to figure out how to include LinkedList into our HashMap
   end
 
   def hash(key) # returns a unique key based on the str's ords
@@ -20,7 +19,10 @@ class HashMap < LinkedList
   def set(key, value) # sets our key and value into the array
     prime_num = 17
     index = hash(key) % prime_num
-    @buckets[index] = @list.append(key, value)
+    if @buckets[index].nil?
+      @buckets[index] = LinkedList.new
+    end
+    @buckets[index].append(key, value)
   end
 
   def buck
