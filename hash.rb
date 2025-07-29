@@ -4,9 +4,9 @@ class HashMap < LinkedList
   attr_accessor :load, :cap, :list, :buckets
 
   def initialize
-    @load = 0.75 
+    @load = 0.75
     @cap = 16
-    @buckets = Array.new(cap) # this is what we're stuck on, we need to figure out how to include LinkedList into our HashMap
+    @buckets = Array.new((cap * load).floor)
   end
 
   def hash(key) # returns a unique key based on the str's ords
@@ -17,7 +17,7 @@ class HashMap < LinkedList
   end
 
   def set(key, value) # sets our key and value into the array
-    prime_num = 17
+    prime_num = 11
     index = hash(key) % prime_num
     if @buckets[index].nil?
       @buckets[index] = LinkedList.new
@@ -25,8 +25,13 @@ class HashMap < LinkedList
     @buckets[index].append(key, value)
   end
 
+  def get(key) # takes one argument as a key and returns the value that is assigned to this key. If key is not found, return nil.
+    prime_num = 11
+    index = hash(key) % prime_num
+  end
+
   def buck
-    p @buckets
+    puts @buckets
   end
 end
 
@@ -41,5 +46,8 @@ test.set('frog', 'green')
 test.set('grape', 'purple')
 test.set('hat', 'black')
 test.set('ice cream', 'white')
+test.set('jacket', 'blue')
+test.set('kite', 'pink')
+test.set('lion', 'golden')
 
 test.buck
