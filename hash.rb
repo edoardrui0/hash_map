@@ -28,7 +28,17 @@ class HashMap < LinkedList
   def get(key) # takes one argument as a key and returns the value that is assigned to this key. If key is not found, return nil.
     prime_num = 11
     index = hash(key) % prime_num
+    list = @buckets[index]
+    current_node = list.head
+
+    until current_node.nil?
+      return puts "The value '#{current_node.value}' is assigned to the key '#{key}'" if current_node.key == key
+      current_node = current_node.next_node
+    end
+    puts "The key that was inputted does not exist"
   end
+
+
 
   def buck
     puts @buckets
@@ -50,4 +60,5 @@ test.set('jacket', 'blue')
 test.set('kite', 'pink')
 test.set('lion', 'golden')
 
-test.buck
+# test.buck
+test.get('golden')

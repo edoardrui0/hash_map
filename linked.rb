@@ -1,7 +1,7 @@
 require_relative 'node'
 
 class LinkedList
-  attr_accessor :head
+  attr_reader :head
 
   def initialize
     @head = nil
@@ -30,9 +30,10 @@ class LinkedList
     puts "The total number of nodes in our list is #{size}"
   end
 
-  def head # returns the first node in the list
-    puts "The first node in our list is #{@head.value}"
-  end
+  # commented this out because it was not allowing me to access @head from HashMap
+  # def head # returns the first node in the list
+  #   puts "The first node in our list is #{@head.value}"
+  # end
 
   def tail # returns the last node in the list
     current_node = @head
