@@ -38,7 +38,19 @@ class HashMap < LinkedList
     puts "The key that was inputted does not exist"
   end
 
+  def has?(key) # takes a key as an argument and returns true or false based on whether or not the key is in the hash map.
+    prime_num = 11
+    index = hash(key) % prime_num
+    list = @buckets[index]
+    return false if @buckets[index].nil? # guard clause
+    current_node = list.head
 
+    until current_node.nil? # can also be written `while current_node`
+      return true if current_node.key == key
+      current_node = current_node.next_node
+    end
+    false
+  end
 
   def buck
     puts @buckets
@@ -49,9 +61,6 @@ test = HashMap.new
 
 test.set('apple', 'red')
 test.set('banana', 'yellow')
-test.set('carrot', 'orange')
-test.set('dog', 'brown')
-test.set('elephant', 'gray')
 test.set('frog', 'green')
 test.set('grape', 'purple')
 test.set('hat', 'black')
@@ -59,6 +68,12 @@ test.set('ice cream', 'white')
 test.set('jacket', 'blue')
 test.set('kite', 'pink')
 test.set('lion', 'golden')
+test.set('snail', 'pink')
+test.set('umbrella', 'blue')
+test.set('moose', 'grey')
+test.set('avery', 'calico')
+test.set('shadow', 'black')
 
-# test.buck
-test.get('golden')
+test.buck
+test.get('shadow')
+puts test.has?('moose')
