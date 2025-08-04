@@ -52,6 +52,21 @@ class HashMap < LinkedList
     false
   end
 
+  def remove(key) # remove key and return the deleted key's value if key is found in hash map. else, return nil
+    prime_num = 11
+    index = hash(key) % prime_num
+    list = @buckets[index]
+    return nil if @buckets[index].nil? # guard clause
+    current_node = list.head
+
+    while current_node
+      p current_node.value if current_node.key == key
+      list.delete(key) if current_node.key == key
+      current_node = current_node.next_node
+    end
+    nil
+  end
+
   def buck
     puts @buckets
   end
@@ -73,7 +88,9 @@ test.set('umbrella', 'blue')
 test.set('moose', 'grey')
 test.set('avery', 'calico')
 test.set('shadow', 'black')
+test.set('charlie', 'orange')
 
 test.buck
 test.get('shadow')
 puts test.has?('moose')
+test.remove('google')

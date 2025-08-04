@@ -64,6 +64,22 @@ class LinkedList
     end
   end
 
+  def delete(key)
+    return if @head.nil?
+
+    if @head.key == key
+      @head = @head.next_node
+      return
+    end
+
+    current_node = @head
+    while current_node.next_node && current_node.next_node.key != key
+      current_node = current_node.next_node
+    end
+
+    current_node.next_node = current_node.next_node.next_node if current_node.next_node
+  end
+
   def contains?(value) # returns true if the passed in value is in the list and otherwise returns false.
     current_node = @head
     until current_node.nil?
