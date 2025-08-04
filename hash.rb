@@ -110,6 +110,19 @@ class HashMap < LinkedList
     p arr
   end
 
+  def entries # returns an array that contains each key, value pair. Example: [[first_key, first_value], [second_key, second_value]]
+    entries = []
+    @buckets.map do |i|
+      next if i.nil?
+      current_node = i.head
+      until current_node.nil?
+        entries << [current_node.key, current_node.value]
+        current_node = current_node.next_node
+      end
+    end
+    p entries
+  end
+
   def buck
     puts @buckets
   end
@@ -141,3 +154,4 @@ test.set('charlie', 'orange')
 # test.clear
 test.keys 
 test.values
+test.entries
