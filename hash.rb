@@ -61,7 +61,6 @@ class HashMap < LinkedList
 
     while current_node
       puts "You deleted the key '#{key}'. It's value was '#{current_node.value}'" if current_node.key == key
-      # p current_node.value if current_node.key == key
       list.delete(key) if current_node.key == key
       current_node = current_node.next_node
     end
@@ -81,8 +80,25 @@ class HashMap < LinkedList
     puts "There are #{length} keys in this HashMap"
   end
 
+  def clear # removes all entries in the hash map.
+    @buckets.clear
+  end
+
+   def keys # returns an array containing all the keys inside the hash map.
+    arr = []
+    @buckets.map do |i|
+      next if i.nil? # guard clause if index is empty
+      current_node = i.head
+      until current_node.nil?
+        arr << current_node.key if current_node.key
+        current_node = current_node.next_node
+      end
+    end
+    p arr
+   end
+
   def buck
-    p @buckets
+    puts @buckets
   end
 end
 
@@ -108,4 +124,6 @@ test.set('charlie', 'orange')
 # test.get('shadow')
 # puts test.has?('moose')
 # test.remove('umbrella')
-test.length # updates with #remove as well
+# test.length # updates with #remove as well
+# test.clear
+test.keys 
