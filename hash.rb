@@ -60,15 +60,29 @@ class HashMap < LinkedList
     current_node = list.head
 
     while current_node
-      p current_node.value if current_node.key == key
+      puts "You deleted the key '#{key}'. It's value was '#{current_node.value}'" if current_node.key == key
+      # p current_node.value if current_node.key == key
       list.delete(key) if current_node.key == key
       current_node = current_node.next_node
     end
     nil
   end
 
+  def length # returns the number of stored keys in the hash map.
+    length = 0
+    @buckets.map do |i|
+      next if i.nil? # guard clause if index is empty
+      current_node = i.head
+      until current_node.nil?
+        length += 1 if current_node.key
+        current_node = current_node.next_node
+      end
+    end
+    puts "There are #{length} keys in this HashMap"
+  end
+
   def buck
-    puts @buckets
+    p @buckets
   end
 end
 
@@ -90,7 +104,8 @@ test.set('avery', 'calico')
 test.set('shadow', 'black')
 test.set('charlie', 'orange')
 
-test.buck
-test.get('shadow')
-puts test.has?('moose')
-test.remove('google')
+# test.buck
+# test.get('shadow')
+# puts test.has?('moose')
+# test.remove('umbrella')
+test.length # updates with #remove as well
