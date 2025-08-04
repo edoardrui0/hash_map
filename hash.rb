@@ -84,18 +84,31 @@ class HashMap < LinkedList
     @buckets.clear
   end
 
-   def keys # returns an array containing all the keys inside the hash map.
+  def keys # returns an array containing all the keys inside the hash map.
+   arr = []
+   @buckets.map do |i|
+     next if i.nil? # guard clause if index is empty
+     current_node = i.head
+     until current_node.nil?
+       arr << current_node.key if current_node.key
+       current_node = current_node.next_node
+     end
+   end
+   p arr
+  end
+
+  def values # returns an array containing all the values.
     arr = []
     @buckets.map do |i|
       next if i.nil? # guard clause if index is empty
       current_node = i.head
       until current_node.nil?
-        arr << current_node.key if current_node.key
+        arr << current_node.value if current_node.value
         current_node = current_node.next_node
       end
     end
     p arr
-   end
+  end
 
   def buck
     puts @buckets
@@ -127,3 +140,4 @@ test.set('charlie', 'orange')
 # test.length # updates with #remove as well
 # test.clear
 test.keys 
+test.values
