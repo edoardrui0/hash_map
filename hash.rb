@@ -19,10 +19,8 @@ class HashMap < LinkedList
   def set(key, value) # sets our key and value into the array
     prime_num = 11
     index = hash(key) % prime_num
-    if @buckets[index].nil?
-      @buckets[index] = LinkedList.new
-    end
-    @buckets[index].append(key, value)
+    @buckets[index] = LinkedList.new if @buckets[index].nil?
+    @buckets[index].append_or_update(key, value)
   end
 
   def get(key) # takes one argument as a key and returns the value that is assigned to this key. If key is not found, return nil.
@@ -124,7 +122,7 @@ class HashMap < LinkedList
   end
 
   def buck
-    puts @buckets
+    p @buckets
   end
 end
 
@@ -132,6 +130,9 @@ test = HashMap.new
 
 test.set('apple', 'red')
 test.set('banana', 'yellow')
+test.set('carrot', 'orange')
+test.set('dog', 'brown')
+test.set('elephant', 'gray')
 test.set('frog', 'green')
 test.set('grape', 'purple')
 test.set('hat', 'black')
@@ -139,19 +140,10 @@ test.set('ice cream', 'white')
 test.set('jacket', 'blue')
 test.set('kite', 'pink')
 test.set('lion', 'golden')
-test.set('snail', 'pink')
-test.set('umbrella', 'blue')
-test.set('moose', 'grey')
-test.set('avery', 'calico')
-test.set('shadow', 'black')
-test.set('charlie', 'orange')
+test.set('frog', 'green')
+test.set('carrot', 'orange')
+test.set('carrot', 'red')
+test.set('grape', 'green')
 
-# test.buck
-# test.get('shadow')
-# puts test.has?('moose')
-# test.remove('umbrella')
-# test.length # updates with #remove as well
-# test.clear
-test.keys 
-test.values
 test.entries
+test.length

@@ -1,15 +1,20 @@
 require_relative 'node'
 
 class LinkedList
+  include Enumerable
   attr_reader :head
 
   def initialize
     @head = nil
   end
 
-  def append(key, value)
+  def append_or_update(key, value)
     return @head = Node.new(key, value) if @head.nil?
-      
+    current = @head
+    while current
+      return current.value = value if current.key == key
+      current = current.next_node
+    end      
     current = @head
     current = current.next_node until current.next_node.nil?
     current.next_node = Node.new(key, value)
@@ -18,6 +23,14 @@ class LinkedList
   def prepend(key, value) # adds a new node containing value to the start of the list
     @head = Node.new(key, value)
   end 
+
+  def each
+    current = @head
+    while current
+      yield current
+      current = current.next_node
+    end
+  end  
 
   def size # returns the total number of nodes in the list
     size = 0
@@ -111,8 +124,3 @@ class LinkedList
     puts list << " nil"
   end
 end
-
-# list = LinkedList.new
-
-# list.append('apple', 'red')
-# list.append('banana', 'yellow')
