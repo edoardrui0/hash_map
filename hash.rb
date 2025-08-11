@@ -17,15 +17,30 @@ class HashMap < LinkedList
   end
 
   def set(key, value) # sets our key and value into the array
-    prime_num = 11
-    index = hash(key) % prime_num
+    index = hash(key) % @cap
     @buckets[index] = LinkedList.new if @buckets[index].nil?
     @buckets[index].append_or_update(key, value)
-  end
+    
+    if length > (@cap * @load)
+      old_buckets = @buckets
+      @cap *= 2
+      new_buckets = Array.new((cap * load).floor)
+      old_buckets.each do |i|
+        next if i.nil?
+        current_node = i.head
+        until current_node.nil?
+          index = hash(current_node.key) % @cap
+          new_buckets[index] = LinkedList.new if new_buckets[index].nil?
+          new_buckets[index].append_or_update(current_node.key, current_node.value)
+          current_node = current_node.next_node
+        end
+      end
+      @buckets = new_buckets
+    end
+  end 
 
   def get(key) # takes one argument as a key and returns the value that is assigned to this key. If key is not found, return nil.
-    prime_num = 11
-    index = hash(key) % prime_num
+    index = hash(key) % @cap
     list = @buckets[index]
     current_node = list.head
 
@@ -37,8 +52,7 @@ class HashMap < LinkedList
   end
 
   def has?(key) # takes a key as an argument and returns true or false based on whether or not the key is in the hash map.
-    prime_num = 11
-    index = hash(key) % prime_num
+    index = hash(key) % @cap
     list = @buckets[index]
     return false if @buckets[index].nil? # guard clause
     current_node = list.head
@@ -51,8 +65,7 @@ class HashMap < LinkedList
   end
 
   def remove(key) # remove key and return the deleted key's value if key is found in hash map. else, return nil
-    prime_num = 11
-    index = hash(key) % prime_num
+    index = hash(key) % @cap
     list = @buckets[index]
     return nil if @buckets[index].nil? # guard clause
     current_node = list.head
@@ -75,7 +88,8 @@ class HashMap < LinkedList
         current_node = current_node.next_node
       end
     end
-    puts "There are #{length} keys in this HashMap"
+    # "There are #{length} keys in this HashMap"
+    length
   end
 
   def clear # removes all entries in the hash map.
@@ -122,7 +136,7 @@ class HashMap < LinkedList
   end
 
   def buck
-    p @buckets
+    puts @buckets
   end
 end
 
@@ -140,10 +154,26 @@ test.set('ice cream', 'white')
 test.set('jacket', 'blue')
 test.set('kite', 'pink')
 test.set('lion', 'golden')
-test.set('frog', 'green')
-test.set('carrot', 'orange')
-test.set('carrot', 'red')
-test.set('grape', 'green')
+test.set('moon', 'silver')
+test.set('model', 'blue')
+test.set('moose', 'tabby')
+test.set('avery', 'calico')
+test.set('charlie', 'orange')
+test.set('shadow', 'black')
+
+#the following below is to test if my @cap keep expanding
+
+test.set('test', 'set')
+test.set('sdf', 'qwe')
+test.set('nonon', 'gsgsjk')
+test.set('zxnao', 'palznh')
+test.set('jsdn', 'poqns')
+test.set('bxuyg', 'asjdh')
+test.set('plpls', 'powpe')
+test.set('oiswfdh', 'iudsgf')
+test.set('qwe', 'wed')
+test.set('shadow', 'white')
+
 
 test.entries
-test.length
+p test.length
