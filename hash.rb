@@ -21,6 +21,10 @@ class HashMap < LinkedList
     @buckets[index] = LinkedList.new if @buckets[index].nil?
     @buckets[index].append_or_update(key, value)
     
+    grow_buckets
+  end 
+
+  def grow_buckets
     if length > (@cap * @load)
       old_buckets = @buckets
       @cap *= 2
@@ -37,7 +41,7 @@ class HashMap < LinkedList
       end
       @buckets = new_buckets
     end
-  end 
+  end
 
   def get(key) # takes one argument as a key and returns the value that is assigned to this key. If key is not found, return nil.
     index = hash(key) % @cap
@@ -174,6 +178,6 @@ test.set('oiswfdh', 'iudsgf')
 test.set('qwe', 'wed')
 test.set('shadow', 'white')
 
-
-test.entries
-p test.length
+test.buck
+# test.entries
+# p test.length
